@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview Coach</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Voice-Based Practice Studio</p>
+          <h1>Interview Coach</h1>
+          <p class="hero-text">
+            Practice realistic interviews with spoken questions, voice-answer capture,
+            technical and behavioural rounds, and a detailed coaching report scored out of 100.
+          </p>
+        </div>
+        <div class="hero-card">
+          <div class="hero-stat">
+            <span>Domains</span>
+            <strong>Engineering, Law, Commerce, Medicine</strong>
+          </div>
+          <div class="hero-stat">
+            <span>Interview Types</span>
+            <strong>Job and Internship</strong>
+          </div>
+          <div class="hero-stat">
+            <span>Voice Features</span>
+            <strong>Speech synthesis + speech recognition</strong>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-grid">
+        <section class="panel config-panel">
+          <div class="panel-header">
+            <p class="panel-kicker">Setup</p>
+            <h2>Build Your Interview</h2>
+          </div>
+
+          <form id="setup-form" class="setup-form">
+            <label>
+              Domain
+              <select id="domain" required>
+                <option value="engineering">Engineering</option>
+                <option value="law">Law</option>
+                <option value="commerce">Commerce</option>
+                <option value="medicine">Medicine</option>
+              </select>
+            </label>
+
+            <label>
+              Interviewing For
+              <select id="track" required>
+                <option value="job">Job</option>
+                <option value="internship">Internship</option>
+              </select>
+            </label>
+
+            <label>
+              Specific Position
+              <input
+                id="position"
+                type="text"
+                placeholder="e.g. Software Engineer, Corporate Lawyer, Financial Analyst"
+                required
+              />
+            </label>
+
+            <label>
+              Candidate Name
+              <input id="candidate-name" type="text" placeholder="Optional" />
+            </label>
+
+            <div class="switch-row">
+              <div>
+                <span class="switch-label">Voice Output</span>
+                <p class="switch-help">Coach speaks each question aloud.</p>
+              </div>
+              <label class="toggle">
+                <input id="voice-enabled" type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="switch-row">
+              <div>
+                <span class="switch-label">Voice Input</span>
+                <p class="switch-help">Use browser speech recognition for answers.</p>
+              </div>
+              <label class="toggle">
+                <input id="speech-enabled" type="checkbox" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <button class="primary-btn" type="submit">Generate Interview</button>
+          </form>
+
+          <div class="compatibility-note" id="compatibility-note">
+            Browser check pending...
+          </div>
+        </section>
+
+        <section class="panel interview-panel">
+          <div class="panel-header">
+            <p class="panel-kicker">Session</p>
+            <h2>Mock Interview</h2>
+          </div>
+
+          <div class="status-strip">
+            <div>
+              <span class="status-label">Stage</span>
+              <strong id="session-stage">Waiting to start</strong>
+            </div>
+            <div>
+              <span class="status-label">Question</span>
+              <strong id="question-count">0 / 0</strong>
+            </div>
+            <div>
+              <span class="status-label">Live Rating</span>
+              <strong id="live-score">--</strong>
+            </div>
+          </div>
+
+          <div class="question-card">
+            <p class="question-tag" id="question-type">No interview loaded</p>
+            <h3 id="question-text">Choose your domain and role, then generate an interview.</h3>
+            <p class="question-meta" id="question-meta">
+              Technical and behavioural questions will adapt to the selected domain and position.
+            </p>
+          </div>
+
+          <div class="voice-panel">
+            <div>
+              <p class="voice-panel-title">Answer By Voice</p>
+              <p class="voice-panel-copy" id="voice-status">
+                Generate an interview, then press Start Voice Answer and allow microphone access.
+              </p>
+            </div>
+            <div class="voice-actions">
+              <button class="secondary-btn voice-btn" id="start-answer-btn" type="button">
+                Start Voice Answer
+              </button>
+              <button class="ghost-btn voice-btn" id="stop-answer-btn" type="button">
+                Stop Voice Answer
+              </button>
+            </div>
+          </div>
+
+          <div class="controls-grid">
+            <button class="secondary-btn" id="speak-question-btn" type="button">
+              Speak Question
+            </button>
+            <button class="primary-btn" id="submit-answer-btn" type="button">
+              Submit Answer
+            </button>
+            <button class="ghost-btn" id="skip-question-btn" type="button">
+              Skip Question
+            </button>
+            <button class="ghost-btn" id="restart-btn" type="button">
+              Restart Session
+            </button>
+          </div>
+
+          <label class="answer-block">
+            Your Answer
+            <textarea
+              id="answer-box"
+              rows="7"
+              placeholder="Type here or answer by voice. Your spoken response will appear here."
+            ></textarea>
+          </label>
+
+          <div class="feedback-preview" id="feedback-preview">
+            Submit an answer to see per-question coaching.
+          </div>
+        </section>
+
+        <section class="panel report-panel">
+          <div class="panel-header">
+            <p class="panel-kicker">Coaching Report</p>
+            <h2>Performance Summary</h2>
+          </div>
+
+          <div class="score-ring">
+            <div class="score-ring-inner">
+              <span>Overall Score</span>
+              <strong id="overall-score">0</strong>
+              <small>/ 100</small>
+            </div>
+          </div>
+
+          <div class="report-grid">
+            <div class="report-card">
+              <span>Technical Depth</span>
+              <strong id="technical-score">0</strong>
+            </div>
+            <div class="report-card">
+              <span>Communication</span>
+              <strong id="communication-score">0</strong>
+            </div>
+            <div class="report-card">
+              <span>Confidence</span>
+              <strong id="confidence-score">0</strong>
+            </div>
+            <div class="report-card">
+              <span>Behaviour & Presence</span>
+              <strong id="behaviour-score">0</strong>
+            </div>
+          </div>
+
+          <div class="report-section">
+            <h3>Key Strengths</h3>
+            <ul id="strengths-list" class="bullet-list">
+              <li>Complete an interview to generate strengths.</li>
+            </ul>
+          </div>
+
+          <div class="report-section">
+            <h3>What To Improve</h3>
+            <ul id="improvements-list" class="bullet-list">
+              <li>Coaching suggestions will appear here after the session.</li>
+            </ul>
+          </div>
+
+          <div class="report-section">
+            <h3>Round-by-Round Notes</h3>
+            <div id="round-notes" class="round-notes">
+              No answers evaluated yet.
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
