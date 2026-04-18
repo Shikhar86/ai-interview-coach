@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: ai-interview-coach
+    runtime: python
+    buildCommand: echo "No build step required"
+    startCommand: python server.py
+    envVars:
+      - key: OPENAI_MODEL
+        value: gpt-5-mini

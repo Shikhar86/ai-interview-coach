@@ -83,6 +83,43 @@ Visit:
 http://127.0.0.1:8000
 ```
 
+## Deploy For A Public Demo Link
+
+The easiest way to get a public demo URL for this project is to deploy it as a Python web service on Render.
+
+### Why Render works well here
+
+- it can deploy directly from your GitHub repository
+- it gives you a public `onrender.com` URL
+- it supports Python web services with environment variables
+- it automatically redeploys when you push changes to GitHub
+
+### Deployment steps
+
+1. Push this project to GitHub.
+2. Create a Render account and connect your GitHub account.
+3. Create a new `Web Service` from this repository.
+4. Set the environment variable:
+
+```text
+OPENAI_API_KEY=your_api_key_here
+```
+
+5. Optional:
+
+```text
+OPENAI_MODEL=gpt-5-mini
+```
+
+6. Deploy the service.
+7. After deployment, Render will give you a public URL like:
+
+```text
+https://ai-interview-coach.onrender.com
+```
+
+You can then put that public URL on your resume as the live demo link.
+
 ## Notes
 
 - The API key stays on the server side and is not exposed in browser JavaScript.
